@@ -1,0 +1,17 @@
+;; String "."
+slice __gen_slice_string_f452d767478a13e2069bcda8f9dc7e5edf0091f1b8148481c08606accdb6ba5d() asm "B{b5ee9c724101010100030000022e2a5619cd} B>boc <s PUSHSLICE";
+
+;; Comment "Withdraw was made!"
+cell __gen_cell_comment_153e41fe2873886ff8aa5c4ef99354a5996e5bf8a4d44b9bcc19dde912664fe4() asm "B{b5ee9c7241010101001800002c00000000576974686472617720776173206d6164652118f8c94c} B>boc PUSHREF";
+
+;; Comment "Owner only comand!"
+cell __gen_cell_comment_c54ae53332199e31950bf836b474481825e6ab5e8ec12e389d982788f411357a() asm "B{b5ee9c7241010101001800002c000000004f776e6572206f6e6c7920636f6d616e6421eddbe0b2} B>boc PUSHREF";
+
+;; String "Game over! x"
+slice __gen_slice_string_4d1028f18ca174540eda43da95fe44253a49a891803f3ecbe31db64b63deafde() asm "B{b5ee9c7241010101000e00001847616d65206f76657221207826aa3ff8} B>boc <s PUSHSLICE";
+
+;; String "Not enought money in contract! (Win was "
+slice __gen_slice_string_f95fa680b739ef613be05a808ad23419185099cd9a5b1aebaf37b3f87790055b() asm "B{b5ee9c7241010101002a0000504e6f7420656e6f75676874206d6f6e657920696e20636f6e747261637421202857696e2077617320def67e41} B>boc <s PUSHSLICE";
+
+;; String " TON)"
+slice __gen_slice_string_21c25e31d0be0f8935708955bf54b2ed9cbc74c1b175903fdcbbfb4c12b2162c() asm "B{b5ee9c7241010101000700000a20544f4e29a360ef77} B>boc <s PUSHSLICE";

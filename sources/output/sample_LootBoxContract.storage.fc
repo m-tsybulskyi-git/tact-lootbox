@@ -10,12 +10,26 @@
 }
 
 ;;
+;; Type: Context
+;; TLB: _ bounced:bool sender:address value:int257 raw:^slice = Context
+;;
+
+_ $Context$_get_sender((int, slice, int, slice) v) inline {
+    var (v'bounced, v'sender, v'value, v'raw) = v;
+    return v'sender;
+}
+
+;;
 ;; Type: SendParameters
 ;; TLB: _ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters
 ;;
 
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline {
     return (bounce, to, value, mode, body, code, data);
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_mode_body(slice to, int value, int mode, cell body) inline {
+    return (true, to, value, mode, body, null(), null());
 }
 
 ;;
@@ -52,58 +66,50 @@ cell $DeployOk$_store_cell((int) v) inline {
 }
 
 ;;
-;; Type: Add
-;; Header: 0x87d43ac2
-;; TLB: add#87d43ac2 amount:uint32 = Add
+;; Type: LootBoxContract
 ;;
 
-(slice, ((int))) $Add$_load(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 2278832834);
-    var v'amount = sc_0~load_uint(32);
-    return (sc_0, (v'amount));
-}
-
-;;
-;; Type: SampleTactContract
-;;
-
-builder $SampleTactContract$_store(builder build_0, (slice, int) v) inline {
-    var (v'owner, v'counter) = v;
+builder $LootBoxContract$_store(builder build_0, (slice, int, slice, int) v) inline {
+    var (v'owner, v'counter, v'biggestWinner, v'biggestWin) = v;
     build_0 = __tact_store_address(build_0, v'owner);
     build_0 = build_0.store_uint(v'counter, 32);
+    build_0 = __tact_store_address_opt(build_0, v'biggestWinner);
+    build_0 = build_0.store_uint(v'biggestWin, 32);
     return build_0;
 }
 
-(slice, ((slice, int))) $SampleTactContract$_load(slice sc_0) inline {
+(slice, ((slice, int, slice, int))) $LootBoxContract$_load(slice sc_0) inline {
     var v'owner = sc_0~__tact_load_address();
     var v'counter = sc_0~load_uint(32);
-    return (sc_0, (v'owner, v'counter));
+    var v'biggestWinner = sc_0~__tact_load_address_opt();
+    var v'biggestWin = sc_0~load_uint(32);
+    return (sc_0, (v'owner, v'counter, v'biggestWinner, v'biggestWin));
 }
 
-(slice, ((slice))) $SampleTactContract$init$_load(slice sc_0) inline {
+(slice, ((slice))) $LootBoxContract$init$_load(slice sc_0) inline {
     var v'owner = sc_0~__tact_load_address();
     return (sc_0, (v'owner));
 }
 
-(slice, int) $SampleTactContract$_contract_load() impure inline_ref {
+(slice, int, slice, int) $LootBoxContract$_contract_load() impure inline_ref {
     slice $sc = get_data().begin_parse();
     __tact_context_sys = $sc~load_ref();
     int $loaded = $sc~load_int(1);
     if ($loaded) {
-        return $sc~$SampleTactContract$_load();
+        return $sc~$LootBoxContract$_load();
     } else {
         ;; Allow only workchain deployments
         throw_unless(137, my_address().preload_uint(11) == 1024);
-        (slice owner) = $sc~$SampleTactContract$init$_load();
+        (slice owner) = $sc~$LootBoxContract$init$_load();
         $sc.end_parse();
-        return $SampleTactContract$_contract_init(owner);
+        return $LootBoxContract$_contract_init(owner);
     }
 }
 
-() $SampleTactContract$_contract_store((slice, int) v) impure inline {
+() $LootBoxContract$_contract_store((slice, int, slice, int) v) impure inline {
     builder b = begin_cell();
     b = b.store_ref(__tact_context_sys);
     b = b.store_int(true, 1);
-    b = $SampleTactContract$_store(b, v);
+    b = $LootBoxContract$_store(b, v);
     set_data(b.end_cell());
 }
